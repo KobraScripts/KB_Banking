@@ -56,7 +56,13 @@ Citizen.CreateThread(function()
                         if tonumber(pin) == playerpin then
                             openNativeBank()
                         else
-                            ShowNotification(Translation[Language]['wrongPin'])
+                            if Config.Notify == 'ESX' then
+                                exports["esx_notify"]:Notify("info", 3000, Translation[Language]['wrongPin'])
+                            elseif Config.Notify == 'OKOK' then
+                                exports['okokNotify']:Alert("Banking", Translation[Language]['wrongPin'] , 5000, 'info')
+                            elseif Config.Notify == 'GTA' then
+                                ShowNotification(Translation[Language]['wrongPin'])
+                            end
                         end
 
                     end)
@@ -88,7 +94,13 @@ Citizen.CreateThread(function ()
                             if tonumber(pin) == playerpin then
                                 openNativeATM()
                             else
-                                ShowNotification(Translation[Language]['wrongPin'])
+                                if Config.Notify == 'ESX' then
+                                    exports["esx_notify"]:Notify("info", 3000, Translation[Language]['wrongPin'])
+                                elseif Config.Notify == 'OKOK' then
+                                    exports['okokNotify']:Alert("Banking", Translation[Language]['wrongPin'] , 5000, 'info')
+                                elseif Config.Notify == 'GTA' then
+                                    ShowNotification(Translation[Language]['wrongPin'])
+                                end
                             end
     
                         end)
@@ -139,7 +151,13 @@ AddEventHandler('KBBanking:OXChangePin', function ()
     })
     KBPin = tonumber(pin[1])
     TriggerServerEvent('KBBanking:changePin', KBPin)
-    ShowNotification(Translation[Language]['newPin'] .. pin[1])
+    if Config.Notify == 'ESX' then
+        exports["esx_notify"]:Notify("info", 3000, Translation[Language]['newPin'] .. pin[1])
+    elseif Config.Notify == 'OKOK' then
+        exports['okokNotify']:Alert("Banking", Translation[Language]['newPin'] .. pin[1] , 5000, 'info')
+    elseif Config.Notify == 'GTA' then
+        ShowNotification(Translation[Language]['newPin'] .. pin[1])
+    end
 end)
 
 RegisterNetEvent('KBBanking:OXWithdraw')
@@ -183,7 +201,13 @@ function openOXATM()
 
         lib.showContext('atm')
     else
-        ShowNotification(Translation[Language]['wrongPin'])
+        if Config.Notify == 'ESX' then
+            exports["esx_notify"]:Notify("info", 3000, Translation[Language]['wrongPin'])
+        elseif Config.Notify == 'OKOK' then
+            exports['okokNotify']:Alert("Banking", Translation[Language]['wrongPin'] , 5000, 'info')
+        elseif Config.Notify == 'GTA' then
+            ShowNotification(Translation[Language]['wrongPin'])
+        end
     end
 
     end)
@@ -211,7 +235,13 @@ function openOXBanking()
     
             lib.showContext('bank')
         else
-            ShowNotification(Translation[Language]['wrongPin'])
+            if Config.Notify == 'ESX' then
+                exports["esx_notify"]:Notify("info", 3000, Translation[Language]['wrongPin'])
+            elseif Config.Notify == 'OKOK' then
+                exports['okokNotify']:Alert("Banking", Translation[Language]['wrongPin'] , 5000, 'info')
+            elseif Config.Notify == 'GTA' then
+                ShowNotification(Translation[Language]['wrongPin'])
+            end
         end
     
     end)
@@ -236,7 +266,13 @@ function openNativeBank()
 
             KBPin = tonumber(pin)
             TriggerServerEvent('KBBanking:changePin', KBPin)
-            ShowNotification(Translation[Language]['newPin'] .. pin)
+            if Config.Notify == 'ESX' then
+                exports["esx_notify"]:Notify("info", 3000, Translation[Language]['newPin'] .. pin)
+            elseif Config.Notify == 'OKOK' then
+                exports['okokNotify']:Alert("Banking", Translation[Language]['newPin'] .. pin , 5000, 'info')
+            elseif Config.Notify == 'GTA' then
+                ShowNotification(Translation[Language]['newPin'] .. pin)
+            end
         end
 
         local withdrawItem = NativeUI.CreateItem(Translation[Language]['withdrawMoney'], '')
@@ -297,6 +333,66 @@ function openNativeATM()
     
         end)
 
+end
+
+RegisterNetEvent('KBBanking:NotifyNewPin')
+AddEventHandler('KBBanking:NotifyNewPin', function (pin)
+    if Config.Notify == 'ESX' then
+        exports["esx_notify"]:Notify("info", 3000, Translation[Language]['yourNewPin'] .. pin)
+    elseif Config.Notify == 'OKOK' then
+        exports['okokNotify']:Alert("Banking", Translation[Language]['yourNewPin'] .. pin , 5000, 'info')
+    elseif Config.Notify == 'GTA' then
+        ShowNotification(Translation[Language]['yourNewPin'] .. pin)
+    end
+end)
+
+RegisterNetEvent('KBBanking:NotifyWithdrawn')
+AddEventHandler('KBBanking:NotifyWithdrawn', function (amount)
+    if Config.Notify == 'ESX' then
+        exports["esx_notify"]:Notify("info", 3000, Translation[Language]['youHaveWithdrawn'] .. amount)
+    elseif Config.Notify == 'OKOK' then
+        exports['okokNotify']:Alert("Banking", Translation[Language]['youHaveWithdrawn'] .. amount , 5000, 'info')
+    elseif Config.Notify == 'GTA' then
+        ShowNotification(Translation[Language]['youHaveWithdrawn'] .. amount)
+    end
+end)
+
+RegisterNetEvent('KBBanking:NotifyDeposited')
+AddEventHandler('KBBanking:NotifyDeposited', function (amount)
+    if Config.Notify == 'ESX' then
+        exports["esx_notify"]:Notify("info", 3000, Translation[Language]['youHaveDeposited'] .. amount)
+    elseif Config.Notify == 'OKOK' then
+        exports['okokNotify']:Alert("Banking", Translation[Language]['youHaveDeposited'] .. amount , 5000, 'info')
+    elseif Config.Notify == 'GTA' then
+        ShowNotification(Translation[Language]['youHaveDeposited'] .. amount)
+    end
+end)
+
+RegisterNetEvent('KBBanking:NotifyNotEnoughMoney')
+AddEventHandler('KBBanking:NotifyNotEnoughMoney', function ()
+    if Config.Notify == 'ESX' then
+        exports["esx_notify"]:Notify("info", 3000, Translation[Language]['notEnoughMoney'])
+    elseif Config.Notify == 'OKOK' then
+        exports['okokNotify']:Alert("Banking", Translation[Language]['notEnoughMoney'] , 5000, 'info')
+    elseif Config.Notify == 'GTA' then
+        ShowNotification(Translation[Language]['notEnoughMoney'])
+    end
+end)
+
+if Config.Command == true then
+    RegisterCommand('pin', function (input, args, rawCommand)
+
+        ESX.TriggerServerCallback('KBAtm:getPin', function (playerpin)
+            if Config.Notify == 'ESX' then
+                exports["esx_notify"]:Notify("info", 3000, Translation[Language]['currentPIN'] .. playerpin)
+            elseif Config.Notify == 'OKOK' then
+                exports['okokNotify']:Alert("Banking", Translation[Language]['currentPIN'] .. playerpin , 5000, 'info')
+            elseif Config.Notify == 'GTA' then
+                ShowNotification(Translation[Language]['currentPIN'] .. playerpin)
+            end
+        end)
+        
+    end)
 end
 
 
