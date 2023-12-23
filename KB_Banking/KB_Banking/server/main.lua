@@ -31,7 +31,7 @@ ESX.RegisterServerCallback('KBAtm:getPin', function (source, cb)
                 ['@pin'] = pin
             }, function ()
                 cb(pin)
-                xPlayer.showNotification(Translation[Language]['yourNewPin'] .. pin)
+                TriggerClientEvent('KBBanking:NotifyNewPin', source, pin)
             end)
         end
 
@@ -59,10 +59,10 @@ AddEventHandler('KBAtm:withdraw', function (amount)
     if xPlayer.getAccount('bank').money >= amount then
         xPlayer.removeAccountMoney('bank', amount)
         xPlayer.addAccountMoney('money', amount)
-        xPlayer.showNotification(Translation[Language]['youHaveWithdrawn'] .. amount)
+        TriggerClientEvent('KBBanking:NotifyWithdrawn', source, amount)
         withdrawLogs(amount)
     else
-        xPlayer.showNotification(Translation[Language]['notEnoughMoney'])
+        TriggerClientEvent('KBBanking:NotifyNotEnoughMoney', source)
     end
 
 end)
@@ -74,10 +74,10 @@ AddEventHandler('KBAtm:deposit', function (amount)
     if xPlayer.getMoney() >= amount then
         xPlayer.removeMoney(amount)
         xPlayer.addAccountMoney('bank', amount)
-        xPlayer.showNotification(Translation[Language]['youHaveDeposited'] .. amount)
+        TriggerClientEvent('KBBanking:NotifyDeposited', source, amount)
         depositLogs(amount)
     else
-        xPlayer.showNotification(Translation[Language]['notEnoughMoney'])
+        TriggerClientEvent('KBBanking:NotifyNotEnoughMoney', source)
     end
     
 end)
