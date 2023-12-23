@@ -4,6 +4,10 @@ Config.Language = 'de' -- You can choose between 'en' and 'de'.
 
 Config.Menu = 'ox_lib'  -- ox_lib or NativeUI
 
+Config.Notify = 'ESX' -- You can use ESX Notify(ESX), GTA Notify(GTA) and OKOK Notify(OKOK)
+
+Config.Command = true  -- Here you have the option to enable or disable a command that shows you your current PIN.
+
 Config.Coords = {
     {149.96, -1040.75, 29.37},
     {-1212.63, -330.78, 37.59},
@@ -50,7 +54,7 @@ Config.Translation = {
         ['depositMoney'] = 'Geld einzahlen',
         ['changePin'] = 'Pin ändern',
         ['currentPIN'] = 'Deine Aktuelle Pin ist: ',
-        ['newPin'] = 'Neue Pin: ~g~',
+        ['newPin'] = 'Neue Pin: ',
         ['yourNewPin'] = 'Deine Neue Pin ist ',
         ['youHaveWithdrawn'] = 'Du hast abgehoben: ',
         ['youHaveDeposited'] = 'Du hast eingezahlt: ',
@@ -75,7 +79,7 @@ Config.Translation = {
         ['depositMoney'] = 'Deposit money',
         ['changePin'] = 'Change PIN',
         ['currentPIN'] = 'Your current PIN is: ',
-        ['newPin'] = 'New PIN: ~g~',
+        ['newPin'] = 'New PIN: ',
         ['yourNewPin'] = 'Your new PIN is ',
         ['youHaveWithdrawn'] = 'You have withdrawn: ',
         ['youHaveDeposited'] = 'You have deposited: ',
